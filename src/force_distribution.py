@@ -1,12 +1,16 @@
 #
 # Filename: force_distribution.py
+#
 # Purpose: 
-#     Pan Deng's idea. ref: [1]https://www.baike.com/wiki/可导误区;处处连续处处不可导
+#     Pan Deng's idea,ie., an infinite series is used as the cost function.  
+#     If it is continuous and undifferentiable everywhere, the distribution of the  
+#     force of each point in its position may be the reason for Levy's flight. 
+#
+# ref: [1]https://www.baike.com/wiki/可导误区;处处连续处处不可导
 #     [2]https://www.thinbug.com/q/47204122 
 #     Date         Author           Version
 #     ========     =========        =======
 #     2020-9-27    GangHuang        Original
-
 
 import math
 import numpy as np
@@ -24,7 +28,7 @@ def zero_to_infinity(nmax=20):
         if i > nmax:
            break
 
-def CalcMYSeries(x):
+def calc_series(x):
     res, temp = 0, 0
     for i in zero_to_infinity(nmax):
         res +=  (a**i)*np.cos((b**i) * np.pi * x)
@@ -60,7 +64,7 @@ if "__name__ == __main__":
     x = np.arange(0,S,1) /n_grid
     y = []
     for iterm in x:
-        y.append( CalcMYSeries(iterm))
+        y.append( calc_series(iterm))
     y= np.array(y)
 
     # After obtaining y

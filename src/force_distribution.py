@@ -42,25 +42,25 @@ def plot_y(x,y):
     #plt.xscale('log')
     plt.plot(x,y)
     plt.title(r"nmax={:3d};$\Delta t$={:7.5f};step={:d}".format(nmax,1/n_grid,S))
-    f.savefig("a{:2.1f}_b{:3.1f}_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
+    f.savefig("a{:3.2f}_b{:3.2f}_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
     plt.show() 
 
 def plot_prob(dy):
     f=plt.figure()
-    hist, bin_edges = np.histogram(dy, bins=20, range=None, weights=None, density=True)
-    _ = plt.hist(hist, bins=20)
+    hist, bin_edges = np.histogram(dy, bins=200, range=(0,100.0), density=True)
+    n, bins, patches = plt.hist(hist, bins=200)
     plt.title(r"nmax={:3d};$\Delta t$={:7.5f};step={:d}".format(nmax,1/n_grid,S))
-    f.savefig("a{:2.1f}_b{:3.1f}_pdf_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
+    f.savefig("a{:3.2f}_b{:3.2f}_pdf_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
     plt.show()
 
 # Main function
 if "__name__ == __main__":
-    a = 0.95
-    z = 3.1 
+    a = 0.9
+    z = 3 
     b = 2*z +1
-    nmax = 40
-    n_grid = 1000000
-    S= 4000000
+    nmax = 30
+    n_grid = 1000
+    S= 400000
     x = np.arange(0,S,1) /n_grid
     y = []
     for iterm in x:
@@ -74,10 +74,13 @@ if "__name__ == __main__":
     for jj in range(np.size(x)):
         if jj==0:
             dy[jj] = -3*y[jj]+4*y[jj+1]-y[jj+2] # see PPT_y_name: Three-point-derivative
+            dy[jj] = abs(dy[jj])
         elif jj==np.size(x)-1:
             dy[jj]=y[jj-2]-4*y[jj-1]+3*y[jj] # threepoint formula; 
+            dy[jj] = abs(dy[jj])
         else:
             dy[jj]=-y[jj-1]+y[jj+1]
+            dy[jj] = abs(dy[jj])
     
     # Plotting
     plot_y(x[:5000],y[:5000])

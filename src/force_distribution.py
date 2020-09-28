@@ -68,7 +68,7 @@ if "__name__ == __main__":
     a = 0.9
     z = 3 
     b = 2*z +1
-    nmax = 3 
+    nmax = 360 
     n_grid = 1000
     S= 40000
     x = np.arange(0,S,1) /n_grid

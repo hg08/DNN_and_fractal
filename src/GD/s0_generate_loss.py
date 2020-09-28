@@ -46,22 +46,14 @@ def plot_y(x,y):
     f.savefig("a{:3.2f}_b{:3.2f}_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
     plt.show() 
 
-def plot_prob(dy):
-    f=plt.figure()
-    hist, bin_edges = np.histogram(dy, bins=200, range=(0,100.0), density=True)
-    n, bins, patches = plt.hist(hist, bins=200)
-    plt.title(r"nmax={:3d};$\Delta t$={:7.5f};step={:d}".format(nmax,1/n_grid,S))
-    f.savefig("a{:3.2f}_b{:3.2f}_pdf_force_{:d}_grid{:d}_nmax{:d}.png".format(a,b,S,n_grid,nmax))
-    plt.show()
-
 # Main function
 if "__name__ == __main__":
     a = 0.9
     z = 3 
     b = 2*z +1
-    nmax = 50
-    n_grid = 1000
-    S= 400000
+    nmax = 30
+    n_grid = 100000
+    S= 2000000
     x = np.arange(0,S,1) /n_grid
     y = []
     for iterm in x:
